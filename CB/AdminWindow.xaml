@@ -24,6 +24,8 @@
                 <TextBox x:Name="txtNewUsername" Width="200" Margin="0,0,0,10"/>
                 <Label Content="New User Password:"/>
                 <PasswordBox x:Name="txtNewPassword" Width="200" Margin="0,0,0,10"/>
+                <CheckBox x:Name="chkPasswordValidation" Content="Enable Password Validation" Margin="0,0,0,10"/>
+
                 <Button Content="Add User" Click="btnAddUser_Click" Margin="0,0,0,10" />
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <ListBox x:Name="lstAllUsers" Width="200" Height="46" Margin="0,0,0,10"/>

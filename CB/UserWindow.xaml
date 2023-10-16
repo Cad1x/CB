@@ -4,6 +4,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="User Window" Height="350" Width="525">
     <Grid>
-        <Label Content="Welcome, User!" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"/>
+        <Label Content="Welcome, User!" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="18"/>
+        <StackPanel Margin="10">
+            <Button Content="Button" Click="Button_Click"/>
+        </StackPanel>
     </Grid>
 </Window>

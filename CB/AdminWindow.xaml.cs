@@ -52,7 +52,7 @@ namespace CB
             }
         }
 
-        private void SaveUserData(string username, string password)
+        private void SaveUserData(string username, string password, bool validatePassword)
         {
             // In a real application, you would need more sophisticated logic to determine
             // whether the user is an admin or a regular user. For simplicity, we assume
@@ -97,8 +97,30 @@ namespace CB
                     }
                 }
 
-                    // Generate a random salt for each user
-                    byte[] salt = GenerateSalt();
+                if (validatePassword)
+                {
+                    // Your password validation logic here
+                    // For example, check if the password meets certain criteria
+                    
+
+                    // Check if there are at least two digits in the password
+                    if (password.Count(char.IsDigit) < 2)
+                    {
+                        MessageBox.Show("User password must contain at least two digits.");
+                        return;
+                    }
+
+                    // Check if there is at least one uppercase letter in the password
+                    if (!password.Any(char.IsUpper))
+                    {
+                        MessageBox.Show("User password must contain at least one uppercase letter.");
+                        return;
+                    }
+                }
+
+
+                // Generate a random salt for each user
+                byte[] salt = GenerateSalt();
 
                 // Add the new user with hashed password and salt
                 existingUsers.Add(new User
@@ -239,8 +261,11 @@ namespace CB
                 return;
             }
 
+            // Check if password validation is requested
+            bool validatePassword = chkPasswordValidation.IsChecked ?? false;
+
             // Save user data
-            SaveUserData(username, password);
+            SaveUserData(username, password, validatePassword);
             MessageBox.Show("User added successfully!");
         }
 

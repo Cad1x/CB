@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Windows;
 using Newtonsoft.Json;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace CB
 {
@@ -14,6 +15,7 @@ namespace CB
     {
         private const string UsersFilePath = "users.json";
         private const string AdminsFilePath = "admin.json";
+        
 
         public MainWindow()
         {
@@ -102,7 +104,7 @@ namespace CB
        
 
 
-            private List<Admin> LoadAdmins()
+        private List<Admin> LoadAdmins()
         {
             try
             {
@@ -132,6 +134,7 @@ namespace CB
 
         private void OpenAppropriateWindow(string username)
         {
+            Data.LoginName = username;
             if (username == "admin")
             {
                 // Open the admin window

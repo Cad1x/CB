@@ -14,7 +14,8 @@ namespace CB
     public partial class ChangePasswordWindow : Window
     {
         private User _user;
-
+        private const string UsersFilePath = "users.json";
+        private const string AdminsFilePath = "admin.json";
         public ChangePasswordWindow(User user)
         {
             InitializeComponent();
@@ -25,8 +26,12 @@ namespace CB
         private void btnChangePassword_Click(object sender, RoutedEventArgs e)
         {
             // Pobierz wprowadzone dane
+            string currentPassword = currentPasswordBox.Password;
             string newPassword = passwordBox.Password;
             string confirmNewPassword = confirmPasswordBox.Password;
+
+
+            AuthenticateUser(currentPassword);
 
             // Sprawdź, czy nowe hasło i jego potwierdzenie są takie same
             if (newPassword != confirmNewPassword)
@@ -35,14 +40,88 @@ namespace CB
                 return;
             }
 
+
+            if (AuthenticateUser(currentPassword))
+            {
+                ChangeUserPassword(newPassword);
+                MessageBox.Show("Hasło zostało pomyślnie zmienione.");
+            }
+            else
+            {
+                MessageBox.Show("Hasło aktualne nie jest poprawne");
+            }
             // Zmień hasło
-            ChangeUserPassword(newPassword);
+
 
             // Ustaw isFirstLogin na false po zmianie hasła
-            
 
-            MessageBox.Show("Hasło zostało pomyślnie zmienione.");
-            Close(); // Zamknij okno po udanej zmianie hasła
+
+
+            // Zamknij okno po udanej zmianie hasła
+        }
+
+        private bool AuthenticateUser(string password)
+        {
+            List<User> users = LoadUsers();
+            List<Admin> admins = LoadAdmins();
+
+
+            // Find the user by username
+            var user = users.FirstOrDefault(u => u.Username == Data.LoginName);
+
+            if (user != null)
+            {
+                if (user.IsFirstLogin)
+                {
+                    // Prompt the user to change the password
+
+                    return false; // Returning false for now; the user will try to log in again with the new password
+                }
+                // Check if the account is locked
+                if (user.IsLocked)
+                {
+                    MessageBox.Show("Twoje konto jest zablokowane. Skontaktuj się z administratorem.");
+                    return false;
+                }
+
+                // Validate the password
+                byte[] salt = Convert.FromBase64String(user.Salt);
+                string hashedPassword = HashPassword(password, salt);
+
+                return hashedPassword == user.PasswordHash;
+            }
+
+            //return (username == "admin" && password == "admin");
+
+            return false;
+        }
+
+        private List<Admin> LoadAdmins()
+        {
+            try
+            {
+                string json = File.ReadAllText(AdminsFilePath);
+                return JsonConvert.DeserializeObject<List<Admin>>(json);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading admins: {ex.Message}");
+                return new List<Admin>();
+            }
+        }
+
+        private List<User> LoadUsers()
+        {
+            try
+            {
+                string json = File.ReadAllText(UsersFilePath);
+                return JsonConvert.DeserializeObject<List<User>>(json);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading users: {ex.Message}");
+                return new List<User>();
+            }
         }
 
         private void ChangeUserPassword(string newPassword)

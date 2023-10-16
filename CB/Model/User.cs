@@ -9,7 +9,6 @@ namespace CB.Model
     public class User
     {
         public string Username { get; set; }
-        public string Password { get; set; }
         public string PasswordHash { get; set; }
         public string Salt { get; set; }
         public string Role { get; set; }
@@ -18,6 +17,7 @@ namespace CB.Model
 
         public bool IsFirstLogin { get; set; } = true;
 
+        public bool IsWymagania { get; set; } 
     }
 
 
