@@ -24,3 +24,5 @@ D:\Visual2022\repos2022\CB\CB\obj\Debug\net7.0-windows\ref\CB.dll
 D:\Visual2022\repos2022\CB\CB\bin\Debug\net7.0-windows\Newtonsoft.Json.dll
 D:\Visual2022\repos2022\CB\CB\obj\Debug\net7.0-windows\CB.csproj.AssemblyReference.cache
 D:\Visual2022\repos2022\CB\CB\obj\Debug\net7.0-windows\CB.csproj.CopyComplete
+D:\Visual2022\repos2022\CB\CB\obj\Debug\net7.0-windows\ChangePasswordWindow.baml
+D:\Visual2022\repos2022\CB\CB\obj\Debug\net7.0-windows\ChangePasswordWindow.g.cs

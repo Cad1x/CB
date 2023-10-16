@@ -25,6 +25,15 @@ namespace CB
             string username = txtUsername.Text;
             string password = txtPassword.Password;
 
+            var user = LoadUsers().FirstOrDefault(u => u.Username == username);
+
+            if (user != null && user.IsFirstLogin)
+            {
+                ChangePasswordWindow changePasswordWindow = new ChangePasswordWindow(user);
+                changePasswordWindow.Show();
+                Close();
+            }
+            else
             if (AuthenticateUser(username, password))
             {
                 MessageBox.Show("Logowanie zakończone sukcesem!");
@@ -38,6 +47,8 @@ namespace CB
             {
                 MessageBox.Show("Niepoprawny login lub hasło");
             }
+
+
         }
 
         private bool AuthenticateUser(string username, string password)
@@ -51,6 +62,12 @@ namespace CB
 
             if (user != null)
             {
+                if (user.IsFirstLogin)
+                {
+                    // Prompt the user to change the password
+                    
+                    return false; // Returning false for now; the user will try to log in again with the new password
+                }
                 // Check if the account is locked
                 if (user.IsLocked)
                 {
@@ -82,7 +99,10 @@ namespace CB
             return false;
         }
 
-        private List<Admin> LoadAdmins()
+       
+
+
+            private List<Admin> LoadAdmins()
         {
             try
             {
