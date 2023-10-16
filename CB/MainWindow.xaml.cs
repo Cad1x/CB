@@ -31,6 +31,7 @@ namespace CB
 
             if (user != null && user.IsFirstLogin)
             {
+                Data.LoginName = username;
                 ChangePasswordWindow changePasswordWindow = new ChangePasswordWindow(user);
                 changePasswordWindow.Show();
                 Close();
@@ -42,7 +43,7 @@ namespace CB
 
                 // Open the appropriate window based on the user role
                 OpenAppropriateWindow(username);
-
+                Data.LoginName = username;
                 Close();
             }
             else
