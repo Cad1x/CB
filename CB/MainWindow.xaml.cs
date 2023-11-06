@@ -37,7 +37,7 @@ namespace CB
         {
             Random random = new Random();
             int randomNumber = random.Next(1, 101);
-            randomNumberTextBlock.Text = $"x: {randomNumber}";
+            randomNumberTextBlock.Text = $"{randomNumber}";
         }
 
 
@@ -79,7 +79,7 @@ namespace CB
 			int.TryParse(fileContenttimer, out int timerValue);
 			int czas = timerValue;
             string oneTimePassword = txtOneTimePassword.Text;
-
+            
 
             string username = txtUsername.Text;
             string password = txtPassword.Password;
@@ -145,12 +145,36 @@ namespace CB
 
         private bool ValidateOneTimePassword(string oneTimePassword)
         {
+
+			
+			//string validOneTimePassword = "123456";
+
+			string validOneTimePassword = txtUsername.Text;
+			int liczbaLiter = 0;
+			foreach (char znak in validOneTimePassword)
+			{
+				if (char.IsLetter(znak)) // Sprawdź, czy znak jest literą
+				{
+					liczbaLiter++;
+				}
+			}
+
+			string text = randomNumberTextBlock.Text;
+		
+				double number = double.Parse(text);
+				
+
+
+			double wynikMatematyczny = liczbaLiter * Math.Log(number); // Obliczanie a * ln(5)
+            double roundedResult = Math.Round(wynikMatematyczny, 3);
+			string roundedResultAsString = roundedResult.ToString("F3"); // Zaokrąglona wartość do 3 miejsc po przecinku jako string
+
+		
+                return oneTimePassword == roundedResultAsString;
             
-
-            string validOneTimePassword = "123456"; 
-
-            return oneTimePassword == validOneTimePassword;
-        }
+            //return oneTimePassword == roundedResult.ToString();
+        	    
+		}
 
         private void LogSuccessfulLogin(string username)
         {
