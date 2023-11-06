@@ -8,6 +8,8 @@ using System.Text;
 using System.Windows;
 using Newtonsoft.Json;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Threading;
+using System.Windows.Threading;
 
 namespace CB
 {
@@ -15,21 +17,68 @@ namespace CB
     {
         private const string UsersFilePath = "users.json";
         private const string AdminsFilePath = "admin.json";
-        
 
-        public MainWindow()
+		private DateTime startTime;
+		private DateTime endTime;
+		private DispatcherTimer timer;
+		public MainWindow()
         {
             InitializeComponent();
-        }
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(1);
+			timer.Tick += Timer_Tick;
+		}
+		private void Timer_Tick(object sender, EventArgs e)
+		{
+			if (DateTime.Now < endTime)
+			{
+				TimeSpan remainingTime = endTime - DateTime.Now;
+				remainingTimeLabel.Content = $"Pozostało {remainingTime.TotalSeconds:F0} sekund.";
+			}
+			else
+			{
+				remainingTimeLabel.Content = "Blokada zdjęta. Można ponownie się logować";
+				timer.Stop();
+				LoginButton.IsEnabled = true;
+                loginAttempts = 0;
+			}
+		}
+		int maxLoginAttempts = 4;
+		//TimeSpan lockoutDuration = TimeSpan.FromMinutes(1);
 
-        private void btnLogin_Click(object sender, RoutedEventArgs e)
+		int loginAttempts = 0;
+		//DateTime accountUnlockTime = DateTime.MinValue;
+        private void UpdateRemainingTimeLabel(TimeSpan remainingTime)
+		{
+			if (remainingTime.TotalSeconds > 0)
+			{
+				// Przykład użycia Label o nazwie remainingTimeLabel w formie Windows Forms
+				remainingTimeLabel.Content = $"Ponowna próba za {remainingTime.Minutes} minut {remainingTime.Seconds} sekund";
+			}
+			else
+			{
+				remainingTimeLabel.Content = "Możesz teraz spróbować ponownie.";
+			}
+		}
+		private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            string username = txtUsername.Text;
+			
+		    string username = txtUsername.Text;
             string password = txtPassword.Password;
 
             var user = LoadUsers().FirstOrDefault(u => u.Username == username);
+            if (loginAttempts==maxLoginAttempts)
+            {
+                int czas = 10;
+				MessageBox.Show($"Przekroczono liczbę dostępnych prób logowania poczekaj {czas} sekund");
 
-            if (user != null && user.IsFirstLogin)
+				startTime = DateTime.Now;
+				endTime = startTime.AddSeconds(czas); // Dodaj 10 sekund do początkowej daty i godziny
+				timer.Start();
+				LoginButton.IsEnabled = false;
+
+			}
+			if (user != null && user.IsFirstLogin)
             {
                 Data.LoginName = username;
                 ChangePasswordWindow changePasswordWindow = new ChangePasswordWindow(user);
@@ -40,16 +89,19 @@ namespace CB
             if (AuthenticateUser(username, password))
             {
                 MessageBox.Show("Logowanie zakończone sukcesem!");
-
-                // Open the appropriate window based on the user role
-                OpenAppropriateWindow(username);
+				
+				// Open the appropriate window based on the user role
+				OpenAppropriateWindow(username);
                 Data.LoginName = username;
+                loginAttempts = 0;
                 Close();
             }
             else
             {
                 MessageBox.Show("Niepoprawny login lub hasło");
-            }
+                loginAttempts++;
+				remainingattemptLabel.Content = "Liczba prób" + loginAttempts.ToString();
+			}
 
 
         }

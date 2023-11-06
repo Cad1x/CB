@@ -15,6 +15,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Security.Cryptography;
+using System.Windows.Threading;
+
 namespace CB
 {
     /// <summary>
@@ -22,15 +24,47 @@ namespace CB
     /// </summary>
     public partial class AdminWindow : Window
     {
-        public AdminWindow()
+		private DispatcherTimer inactivityTimer;
+		private int inactivityDuration = 15; // 15 sekund 
+
+		public AdminWindow()
         {
             InitializeComponent();
             LoadUserComboBox();
             DisplayAllUsers();
-        }
 
+			inactivityTimer = new DispatcherTimer();
+			inactivityTimer.Interval = TimeSpan.FromSeconds(inactivityDuration);
+			inactivityTimer.Tick += (sender, args) => OpenMainWindowOnInactivity();
 
-        private void DisplayAllUsers()
+			MouseMove += (sender, args) => ResetInactivityTimer();
+
+			Loaded += (sender, args) => StartInactivityTimer();
+		}
+
+		private void OpenMainWindowOnInactivity()
+		{
+            // Otwieraj okno MainWindow lub podejmuj odpowiednie działania po jednej minucie nieaktywności
+            // Możesz użyć tej metody do otwarcia okna MainWindow.
+            
+			MainWindow mainWindow = new MainWindow();
+			mainWindow.Show();
+			Close();
+			MessageBox.Show("wylogowano z powodu braku aktywności");
+		}
+
+		private void ResetInactivityTimer()
+		{
+			inactivityTimer.Stop();
+			inactivityTimer.Start();
+		}
+
+		private void StartInactivityTimer()
+		{
+			inactivityTimer.Start();
+		}
+
+		private void DisplayAllUsers()
         {
             // Load all users
             var users = LoadUserData();
@@ -143,8 +177,6 @@ namespace CB
             txtNewUsername.Clear();
             txtNewPassword.Clear();
         }
-
-
 
         private byte[] GenerateSalt()
         {
@@ -520,5 +552,9 @@ namespace CB
             }
         }
 
-    }
+        
+        //-----------------------------------------------------------//
+    
+
+	}
 }

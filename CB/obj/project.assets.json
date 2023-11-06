@@ -55,23 +55,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Michał\\.nuget\\packages\\": {},
-    "D:\\Visual2022\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Komputer\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Visual2022\\repos2022\\CB\\CB\\CB.csproj",
+      "projectUniqueName": "G:\\Studia\\CB\\CB-main\\CB\\CB.csproj",
       "projectName": "CB",
-      "projectPath": "D:\\Visual2022\\repos2022\\CB\\CB\\CB.csproj",
-      "packagesPath": "C:\\Users\\Michał\\.nuget\\packages\\",
-      "outputPath": "D:\\Visual2022\\repos2022\\CB\\CB\\obj\\",
+      "projectPath": "G:\\Studia\\CB\\CB-main\\CB\\CB.csproj",
+      "packagesPath": "C:\\Users\\Komputer\\.nuget\\packages\\",
+      "outputPath": "G:\\Studia\\CB\\CB-main\\CB\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "D:\\Visual2022\\Shared\\NuGetPackages"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Michał\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Komputer\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -123,7 +123,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
       }
     }
   }

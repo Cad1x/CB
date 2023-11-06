@@ -37,7 +37,6 @@ namespace CB
             if (newPassword != confirmNewPassword)
             {
                 MessageBox.Show("Nowe hasło i jego potwierdzenie są różne.");
-                return;
             }
 
 
@@ -75,10 +74,12 @@ namespace CB
                 {
                     // Prompt the user to change the password
 
-                    return false; // Returning false for now; the user will try to log in again with the new password
+                    return false;
+
+                    // Returning false for now; the user will try to log in again with the new password
                 }
-                // Check if the account is locked
-                if (user.IsLocked)
+				// Check if the account is locked
+				if (user.IsLocked)
                 {
                     MessageBox.Show("Twoje konto jest zablokowane. Skontaktuj się z administratorem.");
                     return false;
