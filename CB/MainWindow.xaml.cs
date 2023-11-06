@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Threading;
 using System.Windows.Threading;
+using System.Windows.Controls;
 
 namespace CB
 {
@@ -26,7 +27,16 @@ namespace CB
         {
             InitializeComponent();
             Timers();
-		}
+            GenerateRandomNumber();
+
+        }
+        private void GenerateRandomNumber()
+        {
+            Random random = new Random();
+            int randomNumber = random.Next(1, 101);
+            randomNumberTextBlock.Text = $"x: {randomNumber}";
+        }
+
 
         private void Timers()
         {
@@ -50,7 +60,7 @@ namespace CB
 			}
 		}
 
-    
+        
 
        
 		private void btnLogin_Click(object sender, RoutedEventArgs e)

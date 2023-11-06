@@ -3,17 +3,20 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Login" Height="350" Width="525">
-    <Grid>
+    <Grid x:Name="MainGrid">
         <StackPanel Margin="10">
+            <TextBlock x:Name="randomNumberTextBlock" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
+
+
+            <!-- Dodaj poniższe dwie linie kodu przed zamknięciem StackPanel -->
+            <Label x:Name="remainingattemptLabel" Content=""/>
+            <Label x:Name="remainingTimeLabel" Content=""/>
+
             <Label Content="Username:"/>
             <TextBox x:Name="txtUsername" Width="200" Margin="0,0,0,10"/>
             <Label Content="Password:"/>
             <PasswordBox x:Name="txtPassword" Width="200" Margin="0,0,0,10"/>
             <Button x:Name="LoginButton" Content="Login" Click="btnLogin_Click"/>
-            <Label x:Name="remainingattemptLabel" Content=""/>
-            <Label x:Name="remainingTimeLabel" Content=""/>
-
-
         </StackPanel>
     </Grid>
 </Window>
