@@ -18,14 +18,20 @@ namespace CB
         private const string UsersFilePath = "users.json";
         private const string AdminsFilePath = "admin.json";
 
+		int loginAttempts = 0;
 		private DateTime startTime;
 		private DateTime endTime;
 		private DispatcherTimer timer;
 		public MainWindow()
         {
             InitializeComponent();
-            timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(1);
+            Timers();
+		}
+
+        private void Timers()
+        {
+			timer = new DispatcherTimer();
+			timer.Interval = TimeSpan.FromSeconds(1);
 			timer.Tick += Timer_Tick;
 		}
 		private void Timer_Tick(object sender, EventArgs e)
@@ -43,35 +49,32 @@ namespace CB
                 loginAttempts = 0;
 			}
 		}
-		int maxLoginAttempts = 4;
-		//TimeSpan lockoutDuration = TimeSpan.FromMinutes(1);
 
-		int loginAttempts = 0;
-		//DateTime accountUnlockTime = DateTime.MinValue;
-        private void UpdateRemainingTimeLabel(TimeSpan remainingTime)
-		{
-			if (remainingTime.TotalSeconds > 0)
-			{
-				// Przykład użycia Label o nazwie remainingTimeLabel w formie Windows Forms
-				remainingTimeLabel.Content = $"Ponowna próba za {remainingTime.Minutes} minut {remainingTime.Seconds} sekund";
-			}
-			else
-			{
-				remainingTimeLabel.Content = "Możesz teraz spróbować ponownie.";
-			}
-		}
+    
+
+       
 		private void btnLogin_Click(object sender, RoutedEventArgs e)
-        {
-			
-		    string username = txtUsername.Text;
+		{
+			int maxLoginAttempts = 5;
+
+			string attemptsToSave = "falseLogin.txt";
+			string fileContentLogin = File.ReadAllText(attemptsToSave);
+			int.TryParse(fileContentLogin, out int loginValue);
+			maxLoginAttempts = loginValue;
+			string timerToSave = "falseLoginTimer.txt";
+			string fileContenttimer = File.ReadAllText(timerToSave);
+			int.TryParse(fileContenttimer, out int timerValue);
+			int czas = timerValue;
+
+
+			string username = txtUsername.Text;
             string password = txtPassword.Password;
 
             var user = LoadUsers().FirstOrDefault(u => u.Username == username);
             if (loginAttempts==maxLoginAttempts)
             {
-                int czas = 10;
+                
 				MessageBox.Show($"Przekroczono liczbę dostępnych prób logowania poczekaj {czas} sekund");
-
 				startTime = DateTime.Now;
 				endTime = startTime.AddSeconds(czas); // Dodaj 10 sekund do początkowej daty i godziny
 				timer.Start();
@@ -94,7 +97,6 @@ namespace CB
 				OpenAppropriateWindow(username);
                 Data.LoginName = username;
                 LogSuccessfulLogin(username);
-
                 loginAttempts = 0;
                 Close();
             }
@@ -102,8 +104,7 @@ namespace CB
             {
                 MessageBox.Show("Niepoprawny login lub hasło");
                 loginAttempts++;
-				remainingattemptLabel.Content = "Liczba prób" + loginAttempts.ToString();
-
+				remainingattemptLabel.Content = "Liczba prób " + loginAttempts.ToString();
                 LogFailedLogin(username);
 
             }

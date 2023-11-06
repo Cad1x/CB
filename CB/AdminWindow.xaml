@@ -2,7 +2,7 @@
 <Window x:Class="CB.AdminWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Admin Window" Height="350" Width="525">
+        Title="Admin Window" Height="1350" Width="525">
     <Grid>
 
         <Label Content="Welcome, Admin!" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="18"/>
@@ -53,7 +53,14 @@
                 <Button Content="Lock User" Click="btnLockUser_Click" Margin="0,0,0,10" />
                 <Button Content="Unlock User" Click="btnUnlockUser_Click" Margin="0,0,0,10" />
 
-
+                <Label Content="Czas po jakim użytkownik zostanie automatycznie wylogowany:" />
+                <TextBox x:Name="AutomaticLogout" />
+                <Button Content="Change logout timer" Click="btnlogoutTimer_Click" Margin="0,10,0,10" />
+                <Label Content="Limit błędnych logowań: " HorizontalAlignment="Left" />
+                <TextBox x:Name="falseLogin" HorizontalAlignment="Left" Width="160"/>
+                <Label Content="Na jaki czas użytkownik nie będzie miał możliwości ponownego logowania: "/>
+                <TextBox x:Name="falseLoginTimer" HorizontalAlignment="Left" Width="200" />
+                <Button Content="Zapisz dane" HorizontalAlignment="Left" Margin="0,10" Click="falseloginAttempt_Click"/>
                 <!-- Refresh Button -->
                 
             </StackPanel>

@@ -34,16 +34,68 @@ namespace CB
             DisplayAllUsers();
 
 
-			//inactivityTimer = new DispatcherTimer();
-			//inactivityTimer.Interval = TimeSpan.FromSeconds(inactivityDuration);
-			//inactivityTimer.Tick += (sender, args) => OpenMainWindowOnInactivity();
-
-			//MouseMove += (sender, args) => ResetInactivityTimer();
-
-			//Loaded += (sender, args) => StartInactivityTimer();
+			
 		}
+		private void btnlogoutTimer_Click(object sender, RoutedEventArgs e)
+		{
 
-        private void btnViewLogs_Click(object sender, RoutedEventArgs e)
+			string ALogoutToSave = AutomaticLogout.Text;
+
+			try
+			{
+				// Ścieżka do pliku, do którego chcesz zapisać dane.
+				string filePath = "automatLogout.txt";
+
+				// Zapisz dane do pliku przy użyciu klasy File.
+				File.WriteAllText(filePath, ALogoutToSave);
+
+				// Informacja dla użytkownika, że dane zostały zapisane.
+				MessageBox.Show("Dane zostały zapisane do pliku.");
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("Wystąpił błąd podczas zapisywania danych: " + ex.Message);
+			}
+
+		}
+		private void falseloginAttempt_Click(object sender, RoutedEventArgs e)
+		{
+			string attemptsToSave = falseLogin.Text;
+
+			try
+			{
+				// Ścieżka do pliku, do którego chcesz zapisać dane.
+				string filePath = "falseLogin.txt";
+
+				// Zapisz dane do pliku przy użyciu klasy File.
+				File.WriteAllText(filePath, attemptsToSave);
+
+				// Informacja dla użytkownika, że dane zostały zapisane.
+				MessageBox.Show("Limit błędnych logowań zaktualizowany");
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("Wystąpił błąd podczas zapisywania danych: " + ex.Message);
+			}
+			string timerToSave = falseLoginTimer.Text;
+
+			try
+			{
+				// Ścieżka do pliku, do którego chcesz zapisać dane.
+				string filePath = "falseLoginTimer.txt";
+
+				// Zapisz dane do pliku przy użyciu klasy File.
+				File.WriteAllText(filePath, timerToSave);
+
+				// Informacja dla użytkownika, że dane zostały zapisane.
+				MessageBox.Show("Czas blokady zaktualizowany");
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("Wystąpił błąd podczas zapisywania danych: " + ex.Message);
+			}
+		}
+		private void btnViewLogs_Click(object sender, RoutedEventArgs e)
         {
             // Otwórz nowe okno LogsWindow
             LogsWindow logsWindow = new LogsWindow();
@@ -52,27 +104,7 @@ namespace CB
             // Tutaj możesz również schować obecne okno AdminWindow, jeśli to jest wymagane
              this.Hide();
         }
-  //      private void OpenMainWindowOnInactivity()
-		//{
-  //          // Otwieraj okno MainWindow lub podejmuj odpowiednie działania po jednej minucie nieaktywności
-  //          // Możesz użyć tej metody do otwarcia okna MainWindow.
-            
-		//	MainWindow mainWindow = new MainWindow();
-		//	mainWindow.Show();
-		//	Close();
-		//	MessageBox.Show("wylogowano z powodu braku aktywności");
-		//}
-
-		//private void ResetInactivityTimer()
-		//{
-		//	inactivityTimer.Stop();
-		//	inactivityTimer.Start();
-		//}
-
-		//private void StartInactivityTimer()
-		//{
-		//	inactivityTimer.Start();
-		//}
+ 
 
 		private void DisplayAllUsers()
         {
