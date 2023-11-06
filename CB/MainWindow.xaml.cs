@@ -18,8 +18,11 @@ namespace CB
     {
         private const string UsersFilePath = "users.json";
         private const string AdminsFilePath = "admin.json";
+        private PasswordBox specialPasswordBox;  // Dodaj to pole w klasie
 
-		int loginAttempts = 0;
+
+
+        int loginAttempts = 0;
 		private DateTime startTime;
 		private DateTime endTime;
 		private DispatcherTimer timer;
@@ -75,12 +78,14 @@ namespace CB
 			string fileContenttimer = File.ReadAllText(timerToSave);
 			int.TryParse(fileContenttimer, out int timerValue);
 			int czas = timerValue;
+            string oneTimePassword = txtOneTimePassword.Text;
 
 
-			string username = txtUsername.Text;
+            string username = txtUsername.Text;
             string password = txtPassword.Password;
 
             var user = LoadUsers().FirstOrDefault(u => u.Username == username);
+
             if (loginAttempts==maxLoginAttempts)
             {
                 
@@ -94,12 +99,28 @@ namespace CB
 			if (user != null && user.IsFirstLogin)
             {
                 Data.LoginName = username;
+
                 ChangePasswordWindow changePasswordWindow = new ChangePasswordWindow(user);
                 changePasswordWindow.Show();
                 Close();
             }
             else
-            if (AuthenticateUser(username, password))
+            if (username=="admin")
+            {
+                if (AuthenticateUser(username, password))
+                {
+                    MessageBox.Show("Logowanie zakończone sukcesem!");
+
+                    // Open the appropriate window based on the user role
+                    OpenAppropriateWindow(username);
+                    Data.LoginName = username;
+                    LogSuccessfulLogin(username);
+                    loginAttempts = 0;
+                    Close();
+                }
+            }
+            else
+            if (AuthenticateUser(username, password) && ValidateOneTimePassword(oneTimePassword))
             {
                 MessageBox.Show("Logowanie zakończone sukcesem!");
 				
@@ -120,6 +141,15 @@ namespace CB
             }
 
 
+        }
+
+        private bool ValidateOneTimePassword(string oneTimePassword)
+        {
+            
+
+            string validOneTimePassword = "123456"; 
+
+            return oneTimePassword == validOneTimePassword;
         }
 
         private void LogSuccessfulLogin(string username)
@@ -146,6 +176,7 @@ namespace CB
 
             if (user != null)
             {
+
                 if (user.IsFirstLogin)
                 {
                     // Prompt the user to change the password
@@ -230,6 +261,8 @@ namespace CB
                 userWindow.Show();
             }
         }
+
+
 
         private string HashPassword(string password, byte[] salt)
         {
