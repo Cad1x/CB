@@ -29,7 +29,7 @@ namespace CB
             string currentPassword = currentPasswordBox.Password;
             string newPassword = passwordBox.Password;
             string confirmNewPassword = confirmPasswordBox.Password;
-
+            
 
             AuthenticateUser(currentPassword);
 
@@ -44,21 +44,19 @@ namespace CB
             {
                 ChangeUserPassword(newPassword);
                 MessageBox.Show("Hasło zostało pomyślnie zmienione.");
+                LogChangePass(Data.LoginName);
             }
             else
             {
                 MessageBox.Show("Hasło aktualne nie jest poprawne");
             }
-            // Zmień hasło
-
-
-            // Ustaw isFirstLogin na false po zmianie hasła
-
-
-
-            // Zamknij okno po udanej zmianie hasła
+            
         }
-
+        private void LogChangePass(string username)
+        {
+            Logs logs = new Logs();
+            logs.LogChangePassword(username);
+        }
         private bool AuthenticateUser(string password)
         {
             List<User> users = LoadUsers();
@@ -91,7 +89,7 @@ namespace CB
 
                 return hashedPassword == user.PasswordHash;
             }
-
+            
             //return (username == "admin" && password == "admin");
 
             return false;

@@ -24,8 +24,8 @@ namespace CB
     /// </summary>
     public partial class AdminWindow : Window
     {
-		private DispatcherTimer inactivityTimer;
-		private int inactivityDuration = 15; // 15 sekund 
+		//private DispatcherTimer inactivityTimer;
+		//private int inactivityDuration = 15; // 15 sekund 
 
 		public AdminWindow()
         {
@@ -33,36 +33,46 @@ namespace CB
             LoadUserComboBox();
             DisplayAllUsers();
 
-			inactivityTimer = new DispatcherTimer();
-			inactivityTimer.Interval = TimeSpan.FromSeconds(inactivityDuration);
-			inactivityTimer.Tick += (sender, args) => OpenMainWindowOnInactivity();
 
-			MouseMove += (sender, args) => ResetInactivityTimer();
+			//inactivityTimer = new DispatcherTimer();
+			//inactivityTimer.Interval = TimeSpan.FromSeconds(inactivityDuration);
+			//inactivityTimer.Tick += (sender, args) => OpenMainWindowOnInactivity();
 
-			Loaded += (sender, args) => StartInactivityTimer();
+			//MouseMove += (sender, args) => ResetInactivityTimer();
+
+			//Loaded += (sender, args) => StartInactivityTimer();
 		}
 
-		private void OpenMainWindowOnInactivity()
-		{
-            // Otwieraj okno MainWindow lub podejmuj odpowiednie działania po jednej minucie nieaktywności
-            // Możesz użyć tej metody do otwarcia okna MainWindow.
+        private void btnViewLogs_Click(object sender, RoutedEventArgs e)
+        {
+            // Otwórz nowe okno LogsWindow
+            LogsWindow logsWindow = new LogsWindow();
+            logsWindow.Show();
+
+            // Tutaj możesz również schować obecne okno AdminWindow, jeśli to jest wymagane
+             this.Hide();
+        }
+  //      private void OpenMainWindowOnInactivity()
+		//{
+  //          // Otwieraj okno MainWindow lub podejmuj odpowiednie działania po jednej minucie nieaktywności
+  //          // Możesz użyć tej metody do otwarcia okna MainWindow.
             
-			MainWindow mainWindow = new MainWindow();
-			mainWindow.Show();
-			Close();
-			MessageBox.Show("wylogowano z powodu braku aktywności");
-		}
+		//	MainWindow mainWindow = new MainWindow();
+		//	mainWindow.Show();
+		//	Close();
+		//	MessageBox.Show("wylogowano z powodu braku aktywności");
+		//}
 
-		private void ResetInactivityTimer()
-		{
-			inactivityTimer.Stop();
-			inactivityTimer.Start();
-		}
+		//private void ResetInactivityTimer()
+		//{
+		//	inactivityTimer.Stop();
+		//	inactivityTimer.Start();
+		//}
 
-		private void StartInactivityTimer()
-		{
-			inactivityTimer.Start();
-		}
+		//private void StartInactivityTimer()
+		//{
+		//	inactivityTimer.Start();
+		//}
 
 		private void DisplayAllUsers()
         {
@@ -109,6 +119,46 @@ namespace CB
                     PasswordHash = HashPassword(password, salt),
                     Salt = Convert.ToBase64String(salt),
                     Role = "admin"
+                });
+
+                // Save the updated list back to admin.json
+                json = JsonConvert.SerializeObject(existingAdmins);
+                File.WriteAllText("admin.json", json);
+            }
+            else if (username.StartsWith("mod"))
+            {
+                var existingAdmins = LoadAdminData();
+
+                // Generate a random salt for each admin
+                byte[] salt = GenerateSalt();
+
+                // Add the new admin with hashed password and salt
+                existingAdmins.Add(new Admin
+                {
+                    Username = username,
+                    PasswordHash = HashPassword(password, salt),
+                    Salt = Convert.ToBase64String(salt),
+                    Role = "moderator"
+                });
+
+                // Save the updated list back to admin.json
+                json = JsonConvert.SerializeObject(existingAdmins);
+                File.WriteAllText("admin.json", json);
+            }
+            else if (username.StartsWith("boss"))
+            {
+                var existingAdmins = LoadAdminData();
+
+                // Generate a random salt for each admin
+                byte[] salt = GenerateSalt();
+
+                // Add the new admin with hashed password and salt
+                existingAdmins.Add(new Admin
+                {
+                    Username = username,
+                    PasswordHash = HashPassword(password, salt),
+                    Salt = Convert.ToBase64String(salt),
+                    Role = "boss"
                 });
 
                 // Save the updated list back to admin.json
@@ -256,12 +306,20 @@ namespace CB
                     RemoveUser(selectedUser);
                     MessageBox.Show($"User '{selectedUser}' removed successfully!");
                     LoadUserComboBox(); // Refresh ComboBox
+                    DeleteLog(selectedUser);
+
                 }
             }
             else
             {
                 MessageBox.Show("Please select a user to remove.");
             }
+        }
+
+        private void DeleteLog(string username)
+        {
+            Logs logs = new Logs();
+            logs.LogUserDelete(username);
         }
 
         private void RemoveUser(string username)
@@ -299,8 +357,14 @@ namespace CB
             // Save user data
             SaveUserData(username, password, validatePassword);
             MessageBox.Show("User added successfully!");
+            CreateLog(username);
         }
 
+        private void CreateLog(string username)
+        {
+            Logs logs = new Logs();
+            logs.LogUserCreate(username);
+        }
         private void btnEditUserNick_Click(object sender, RoutedEventArgs e)
         {
             string oldUsername = cmbUsers.SelectedItem.ToString();
@@ -552,9 +616,8 @@ namespace CB
             }
         }
 
-        
-        //-----------------------------------------------------------//
-    
+       
 
-	}
+
+    }
 }

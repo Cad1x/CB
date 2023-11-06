@@ -93,6 +93,8 @@ namespace CB
 				// Open the appropriate window based on the user role
 				OpenAppropriateWindow(username);
                 Data.LoginName = username;
+                LogSuccessfulLogin(username);
+
                 loginAttempts = 0;
                 Close();
             }
@@ -101,10 +103,26 @@ namespace CB
                 MessageBox.Show("Niepoprawny login lub hasło");
                 loginAttempts++;
 				remainingattemptLabel.Content = "Liczba prób" + loginAttempts.ToString();
-			}
+
+                LogFailedLogin(username);
+
+            }
 
 
         }
+
+        private void LogSuccessfulLogin(string username)
+        {
+            Logs logs = new Logs();
+            logs.LogLogin(username);
+        }
+
+        private void LogFailedLogin(string username)
+        {
+            Logs logs = new Logs();
+            logs.LogLoginFiled(username);
+        }
+
 
         private bool AuthenticateUser(string username, string password)
         {

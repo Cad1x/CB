@@ -54,3 +54,6 @@ G:\Studia\CB\CB-main\CB\obj\Debug\net7.0-windows\refint\CB.dll
 G:\Studia\CB\CB-main\CB\obj\Debug\net7.0-windows\CB.pdb
 G:\Studia\CB\CB-main\CB\obj\Debug\net7.0-windows\CB.genruntimeconfig.cache
 G:\Studia\CB\CB-main\CB\obj\Debug\net7.0-windows\ref\CB.dll
+D:\Visual2022\repos2022\CB\CB\obj\Debug\net7.0-windows\CB_MarkupCompile.lref
+D:\Visual2022\repos2022\CB\CB\obj\Debug\net7.0-windows\LogsWindow.g.cs
+D:\Visual2022\repos2022\CB\CB\obj\Debug\net7.0-windows\LogsWindow.baml

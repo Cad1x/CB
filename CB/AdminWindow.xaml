@@ -4,9 +4,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Admin Window" Height="350" Width="525">
     <Grid>
+
         <Label Content="Welcome, Admin!" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="18"/>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="40" Orientation="Vertical">
+                <Button Content="View Logs" Click="btnViewLogs_Click" Margin="0,0,0,10" />
+
                 <Button Content="Refresh" Click="btnRefresh_Click" Margin="0,0,0,10" />
 
                 <Label Content="Admin Username:"/>
