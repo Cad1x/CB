@@ -125,3 +125,11 @@ G:\Studia\CB\CopyCB\CB-main\CB\bin\Debug\net7.0-windows\runtimes\win\lib\net7.0\
 D:\Visual2022\repos2022\CB\CB\bin\Debug\net7.0-windows\Microsoft.Win32.SystemEvents.dll
 D:\Visual2022\repos2022\CB\CB\bin\Debug\net7.0-windows\System.Drawing.Common.dll
 D:\Visual2022\repos2022\CB\CB\bin\Debug\net7.0-windows\runtimes\win\lib\net7.0\Microsoft.Win32.SystemEvents.dll
+D:\Visual2022\repos2022\CB\CB\bin\Debug\net7.0-windows\Microsoft.Extensions.Logging.Abstractions.dll
+D:\Visual2022\repos2022\CB\CB\bin\Debug\net7.0-windows\Microsoft.Web.WebView2.Core.dll
+D:\Visual2022\repos2022\CB\CB\bin\Debug\net7.0-windows\Microsoft.Web.WebView2.WinForms.dll
+D:\Visual2022\repos2022\CB\CB\bin\Debug\net7.0-windows\Microsoft.Web.WebView2.Wpf.dll
+D:\Visual2022\repos2022\CB\CB\bin\Debug\net7.0-windows\ReCaptcha.Desktop.WPF.dll
+D:\Visual2022\repos2022\CB\CB\bin\Debug\net7.0-windows\runtimes\win-arm64\native\WebView2Loader.dll
+D:\Visual2022\repos2022\CB\CB\bin\Debug\net7.0-windows\runtimes\win-x64\native\WebView2Loader.dll
+D:\Visual2022\repos2022\CB\CB\bin\Debug\net7.0-windows\runtimes\win-x86\native\WebView2Loader.dll

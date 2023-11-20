@@ -49,6 +49,10 @@
               "target": "Package",
               "version": "[13.0.3, )"
             },
+            "ReCaptcha.Desktop.WPF": {
+              "target": "Package",
+              "version": "[2.0.2, )"
+            },
             "System.Drawing.Common": {
               "target": "Package",
               "version": "[8.0.0, )"

@@ -1,11 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "oGe1pZc4gNlYeEUAwu0BEuUWePzaUiMxi9h2GzLlO1Zvc7WpkENCftXOOmEPEntn9d3Qo+OVNJ1zcLDiBqcfHQ==",
+  "dgSpecHash": "E/hkRoikICTm71W1y8TcR0KkwzbtKJLkzMt6XD6IfjdgFWF1Dry5799MKajoXYWwNegxqkwynSA9Y+BscgxENw==",
   "success": true,
   "projectFilePath": "D:\\Visual2022\\repos2022\\CB\\CB\\CB.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Michał\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\7.0.1\\microsoft.extensions.logging.abstractions.7.0.1.nupkg.sha512",
+    "C:\\Users\\Michał\\.nuget\\packages\\microsoft.web.webview2\\1.0.1901.177\\microsoft.web.webview2.1.0.1901.177.nupkg.sha512",
     "C:\\Users\\Michał\\.nuget\\packages\\microsoft.win32.systemevents\\8.0.0\\microsoft.win32.systemevents.8.0.0.nupkg.sha512",
     "C:\\Users\\Michał\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\Michał\\.nuget\\packages\\recaptcha.desktop.wpf\\2.0.2\\recaptcha.desktop.wpf.2.0.2.nupkg.sha512",
     "C:\\Users\\Michał\\.nuget\\packages\\system.drawing.common\\8.0.0\\system.drawing.common.8.0.0.nupkg.sha512"
   ],
   "logs": []

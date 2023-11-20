@@ -24,7 +24,7 @@
             <Button x:Name="LoginButton" Content="Login" Click="btnLogin_Click"/>
 
             <TextBlock x:Name="mathCaptchaTextBlock" Margin="0,0,0,10" FontSize="16"/>
-            <Label Content="Program zaokrągla wyniki działań do liczb całkowitych" />
+            <Label Content="Podaj wynik:" />
             <TextBox x:Name="answerTextBox" Text="" Margin="0,0,0,10"/>
             <Button Content="Submit" Click="SubmitButton_Click"/>
 

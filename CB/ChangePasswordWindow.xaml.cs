@@ -8,6 +8,10 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using ReCaptcha.Desktop.WPF.Client;
+using ReCaptcha.Desktop.WPF.Client.Interfaces;
+using ReCaptcha.Desktop.WPF.Configuration;
+using System.Threading;
 
 namespace CB
 {
@@ -22,6 +26,9 @@ namespace CB
             _user = user;
             _user.IsFirstLogin = false;
         }
+
+
+
 
         private void btnChangePassword_Click(object sender, RoutedEventArgs e)
         {
@@ -203,6 +210,23 @@ namespace CB
                 rng.GetBytes(salt);
                 return salt;
             }
+        }
+
+        private async void captcha_Click(object sender, RoutedEventArgs e)
+        {
+            WindowConfig uiConfig = new("WINDOW_TITLE"); // WPF
+            ReCaptchaConfig config = new("6Lf2VhYpAAAAAGL0yJt93LkcYjCogV7BjES2xY6T", "test.com");
+            IReCaptchaClient reCaptcha = new ReCaptchaClient(config, uiConfig);
+            reCaptcha.VerificationRecieved += (s, e) =>
+            {
+                MessageBox.Show("Verification recieved");
+                robotCheckBox.IsChecked = true;
+            };
+
+            reCaptcha.VerificationCancelled += (s, e) =>
+                MessageBox.Show($"Occurred At: {e.OccurredAt}", "Verification cancelled");
+            CancellationTokenSource cts = new(TimeSpan.FromMinutes(1));
+            string token = await reCaptcha.VerifyAsync(cts.Token);
         }
     }
 }
