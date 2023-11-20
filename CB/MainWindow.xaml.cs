@@ -11,6 +11,8 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Threading;
 using System.Windows.Threading;
 using System.Windows.Controls;
+using System.Drawing;
+using System.Windows.Media.Imaging;
 
 namespace CB
 {
@@ -19,10 +21,13 @@ namespace CB
         private const string UsersFilePath = "users.json";
         private const string AdminsFilePath = "admin.json";
         private PasswordBox specialPasswordBox;  // Dodaj to pole w klasie
+		private int operand1;
+		private int operand2;
+		private string operatorString;
+        private bool captcha = false;
 
 
-
-        int loginAttempts = 0;
+		int loginAttempts = 0;
 		private DateTime startTime;
 		private DateTime endTime;
 		private DispatcherTimer timer;
@@ -31,9 +36,81 @@ namespace CB
             InitializeComponent();
             Timers();
             GenerateRandomNumber();
+        
+			GenerateMathCaptcha();
 
-        }
-        private void GenerateRandomNumber()
+
+		}
+		private void GenerateMathCaptcha()
+		{
+			Random random = new Random();
+
+			// Losowe liczby i operator matematyczny
+			operand1 = random.Next(1, 10);
+			operand2 = random.Next(1, 10);
+			operatorString = GetRandomOperator();
+
+			// Tworzenie pytania matematycznego
+			string mathQuestion = $"{operand1} {operatorString} {operand2} = ?";
+
+			// Wyświetlanie pytania w interfejsie użytkownika
+			mathCaptchaTextBlock.Text = mathQuestion;
+		}
+
+		private string GetRandomOperator()
+		{
+			string[] operators = { "+", "-", "*", "/" };
+			Random random = new Random();
+			int index = random.Next(operators.Length);
+			return operators[index];
+		}
+
+		private void SubmitButton_Click(object sender, RoutedEventArgs e)
+		{
+			// Sprawdzanie poprawności odpowiedzi
+			int userAnswer;
+			if (int.TryParse(answerTextBox.Text, out userAnswer))
+			{
+				int correctAnswer = CalculateMathResult();
+				if (userAnswer == correctAnswer)
+				{
+					MessageBox.Show("Odpowiedź poprawna. Możesz przejść dalej.");
+					// Tutaj dodaj kod logowania, jeśli odpowiedź jest poprawna
+                    captcha = true;
+				}
+				else
+				{
+					MessageBox.Show("Błędna odpowiedź. Spróbuj ponownie.");
+                    captcha = false;
+					// Tutaj możesz zresetować lub wygenerować nowe pytanie matematyczne
+					GenerateMathCaptcha();
+				}
+			}
+			else
+			{
+				MessageBox.Show("Podaj poprawną liczbę.");
+			}
+		}
+
+		private int CalculateMathResult()
+		{
+			switch (operatorString)
+			{
+				case "+":
+					return operand1 + operand2;
+				case "-":
+					return operand1 - operand2;
+				case "*":
+					return operand1 * operand2;
+				case "/":
+					return operand1 / operand2;
+				default:
+					throw new InvalidOperationException("Niepoprawny operator matematyczny.");
+			}
+		}
+
+
+		private void GenerateRandomNumber()
         {
             Random random = new Random();
             int randomNumber = random.Next(1, 101);
@@ -120,7 +197,7 @@ namespace CB
                 }
             }
             else
-            if (AuthenticateUser(username, password) && ValidateOneTimePassword(oneTimePassword))
+            if (AuthenticateUser(username, password) && ValidateOneTimePassword(oneTimePassword) && captcha==true)
             {
                 MessageBox.Show("Logowanie zakończone sukcesem!");
 				
@@ -162,14 +239,11 @@ namespace CB
 			string text = randomNumberTextBlock.Text;
 		
 				double number = double.Parse(text);
-				
-
 
 			double wynikMatematyczny = liczbaLiter * Math.Log(number); // Obliczanie a * ln(5)
             double roundedResult = Math.Round(wynikMatematyczny, 3);
 			string roundedResultAsString = roundedResult.ToString("F3"); // Zaokrąglona wartość do 3 miejsc po przecinku jako string
 
-		
                 return oneTimePassword == roundedResultAsString;
             
             //return oneTimePassword == roundedResult.ToString();
@@ -237,9 +311,6 @@ namespace CB
 
             return false;
         }
-
-       
-
 
         private List<Admin> LoadAdmins()
         {

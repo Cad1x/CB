@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "G:\\Studia\\CB\\newCB\\CB-main\\CB\\CB.csproj": {}
+    "G:\\Studia\\CB\\CopyCB\\CB-main\\CB\\CB.csproj": {}
   },
   "projects": {
-    "G:\\Studia\\CB\\newCB\\CB-main\\CB\\CB.csproj": {
+    "G:\\Studia\\CB\\CopyCB\\CB-main\\CB\\CB.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\Studia\\CB\\newCB\\CB-main\\CB\\CB.csproj",
+        "projectUniqueName": "G:\\Studia\\CB\\CopyCB\\CB-main\\CB\\CB.csproj",
         "projectName": "CB",
-        "projectPath": "G:\\Studia\\CB\\newCB\\CB-main\\CB\\CB.csproj",
+        "projectPath": "G:\\Studia\\CB\\CopyCB\\CB-main\\CB\\CB.csproj",
         "packagesPath": "C:\\Users\\Komputer\\.nuget\\packages\\",
-        "outputPath": "G:\\Studia\\CB\\newCB\\CB-main\\CB\\obj\\",
+        "outputPath": "G:\\Studia\\CB\\CopyCB\\CB-main\\CB\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -48,6 +48,10 @@
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.3, )"
+            },
+            "System.Drawing.Common": {
+              "target": "Package",
+              "version": "[8.0.0, )"
             }
           },
           "imports": [

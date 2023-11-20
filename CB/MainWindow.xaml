@@ -2,7 +2,7 @@
 <Window x:Class="CB.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Login" Height="350" Width="525">
+        Title="Login" Height="550" Width="525">
     <Grid x:Name="MainGrid">
         <StackPanel Margin="10">
             <TextBlock x:Name="randomNumberTextBlock" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
@@ -22,6 +22,12 @@
 
 
             <Button x:Name="LoginButton" Content="Login" Click="btnLogin_Click"/>
+
+            <TextBlock x:Name="mathCaptchaTextBlock" Margin="0,0,0,10" FontSize="16"/>
+            <Label Content="Program zaokrągla wyniki działań do liczb całkowitych" />
+            <TextBox x:Name="answerTextBox" Text="" Margin="0,0,0,10"/>
+            <Button Content="Submit" Click="SubmitButton_Click"/>
+
         </StackPanel>
     </Grid>
 </Window>
