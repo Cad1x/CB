@@ -29,7 +29,12 @@ namespace CB
             string currentPassword = currentPasswordBox.Password;
             string newPassword = passwordBox.Password;
             string confirmNewPassword = confirmPasswordBox.Password;
-            
+
+            if (!robotCheckBox.IsChecked.GetValueOrDefault())
+            {
+                MessageBox.Show("Proszę potwierdzić, że nie jesteś robotem.");
+                return;
+            }
 
             AuthenticateUser(currentPassword);
 

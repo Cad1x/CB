@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-G:\Studia\CB\CopyCB\CB-main\CB\obj\Debug\net7.0-windows\
+D:\Visual2022\repos2022\CB\CB\obj\Debug\net7.0-windows\
 CB
 none
 false
 TRACE;DEBUG;NET;NET7_0;NETCOREAPP
-G:\Studia\CB\CopyCB\CB-main\CB\App.xaml
+D:\Visual2022\repos2022\CB\CB\App.xaml
 5-1176361227
 
 131747157599
-200109595468
+200420911031
 AdminWindow.xaml;ChangePasswordWindow.xaml;LogsWindow.xaml;MainWindow.xaml;UserWindow.xaml;
 
-False
+True
 
